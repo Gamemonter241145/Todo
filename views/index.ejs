@@ -10,7 +10,8 @@
                 <div class=" card">
                     <%  tasks.forEach(item =>{ %> 
                         <div class="item">
-                            <input type="checkbox" <% if(item.isDone){ %> checked <% } %>>
+                            <input type="checkbox" name="isDone" value="<%=item._id%>" onChange="this.form.submit()" 
+                                <% if(item.isDone){ %> checked <% } %>>
                             <p><%=item.task%></p> 
                             <button class="btn-delete" type="submit" name="delete" value="<%=item._id%>">-</button>
                         </div>
