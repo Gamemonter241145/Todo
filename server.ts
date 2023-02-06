@@ -59,14 +59,18 @@ app.post('/', (req: Request, response: Response)=>{
     { 
         path = "School"
     } 
-    if(req.body.isDone !== '')
+    if(req.body.isDone !== '' && newTask === '' && req.body.delete === undefined)
     { 
-        const updateid = req.body.isDone
-        Todo.findOneAndUpdate({_id: updateid }, [{ $set: { isDone: { $not: "$isDone" } } }], () =>{
+        const update_id = req.body.isDone
+        console.log('update_id = '+ update_id)
+        Todo.findOneAndUpdate({_id: update_id }, [{ $set: { isDone: { $not: "$isDone" } } }], (err:string,doc:ITodo) =>{
+            if(err)
+            response.send(err)
+            else
             response.redirect(path)
         })
     }
-    if(newTask !== ''){
+    else if(newTask !== ''){
         const task = new Todo({
             task: newTask,
             isDone:false,
@@ -75,7 +79,7 @@ app.post('/', (req: Request, response: Response)=>{
         task.save()
         response.redirect(path)
     }
-    if(req.body.delete !== undefined){
+    else if(req.body.delete !== undefined){
         const delete_id = req.body.delete
        Todo.findByIdAndDelete(delete_id,(err:string)=>{
         if(err){

@@ -7,11 +7,11 @@
             <div class="header-subtitle"> 
              <form action="/" method="post"> 
                 <input type="hidden" name="type" value="<%=taskTitle%>">
+                <input type="hidden" name="isDone" id="isDone" value="">
                 <div class=" card">
                     <%  tasks.forEach(item =>{ %> 
                         <div class="item">
-                            <input type="checkbox" name="isDone" value="<%=item._id%>" onChange="this.form.submit()" 
-                                <% if(item.isDone){ %> checked <% } %>>
+                            <input type="checkbox" value="<%=item._id %>" onChange="clickcheckBox(this)" <% if(item.isDone){ %> checked <% } %>>
                             <p><%=item.task%></p> 
                             <button class="btn-delete" type="submit" name="delete" value="<%=item._id%>">-</button>
                         </div>
@@ -26,4 +26,10 @@
             </div>
         </div>
      </div>
+     <script>
+        function clickcheckBox(obj){
+            document.getElementById("isDone").value = obj.value
+            document.getElementById("myForm").submit()
+        }
+     </script>
      <%- include('footer') -%>
